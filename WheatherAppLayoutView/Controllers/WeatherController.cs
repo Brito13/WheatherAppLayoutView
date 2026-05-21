@@ -1,13 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WheatherAppLayoutView.Models;
 
 namespace WheatherAppLayoutView.Controllers
 {
     public class WeatherController : Controller
     {
+        public List<CityWheater> cities = new List<CityWheater>()
+        {
+            new CityWheater() { CityUniqueCode = "LDN", CityName = "London", DateAndTime = DateTime.Parse("2030-01-01 8:00"), Temperature = 33 },
+            new CityWheater() { CityUniqueCode = "NYC", CityName = "New York", DateAndTime = DateTime.Parse("2030-01-01 3:00"), Temperature = 60 },
+            new CityWheater() { CityUniqueCode = "PAR", CityName = "Paris", DateAndTime = DateTime.Parse("2030-01-01 9:00"), Temperature = 82 }
+
+        };
+
+
         [Route("/")]
         public IActionResult Index()
         {
-            return View();
+            return View(cities);
+        }
+
+        [Route("Country/Details/{code}")]
+        public IActionResult Details(string code)
+        {
+            var city = cities.FirstOrDefault(c => c.CityUniqueCode == code);
+            return View(city);
         }
     }
 }
