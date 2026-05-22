@@ -20,8 +20,8 @@ namespace WheatherAppLayoutView.Controllers
             return View(cities);
         }
 
-        [Route("Country/Details/{code}")]
-        public IActionResult Details(string code)
+        [Route("Country/Details/")]
+        public IActionResult Details([FromQuery]string code)
         {
             var city = cities.FirstOrDefault(c => c.CityUniqueCode == code);
             return View(city);

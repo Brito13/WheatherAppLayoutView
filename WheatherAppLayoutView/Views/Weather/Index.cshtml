@@ -14,13 +14,30 @@
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                                <img src="~/img/@(city.CityUniqueCode).jpg" class="img-fluid rounded-start" alt="...">                        </div>
-                        <div class="col-md-8">
+                            <img src="~/img/@(city.CityUniqueCode).jpg" class="img-fluid rounded-start" alt="...">
+                        </div>
+
+                        @{
+                            string backgroundColor;
+                            if (city.Temperature < 44)
+                            {
+                                backgroundColor = "blue-back";
+                            }
+                            else if (city.Temperature >= 44 && city.Temperature <= 74 )
+                            {
+                                backgroundColor = "green-back";
+                            }
+                            else
+                            {
+                                backgroundColor = "orange-back";
+                            }
+                        }
+                        <div class="col-md-8 @backgroundColor">
                             <div class="card-body">
                                 <h5 class="card-title">@city.CityName</h5>
                                 <p class="card-text">@city.DateAndTime.Value.ToString("yyyy-dd-M HH:mm")</p>
                                 <p class="card-text"><small class="text-body-secondary">@city.Temperature ºF</small></p>
-                                <a href="/Country/Details/@(city.CityUniqueCode)" class="card-link">Details</a>
+                                <a href="/Country/Details?code=@(city.CityUniqueCode)" class="card-link">Details</a>
                             </div>
                         </div>
                     </div>
