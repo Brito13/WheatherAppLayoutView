@@ -24,6 +24,10 @@ namespace WheatherAppLayoutView.Controllers
         public IActionResult Details([FromQuery]string code)
         {
             var city = cities.FirstOrDefault(c => c.CityUniqueCode == code);
+            if (city == null)
+            {
+                return PartialView("_CityNotFound");
+            }
             return View(city);
         }
     }
