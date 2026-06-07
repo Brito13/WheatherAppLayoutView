@@ -1,15 +1,9 @@
 ﻿@model List<CityWheater>
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.Title = "Weather";
-}
-
 
 <div class="container text-center margin-top-200">
-    <div class="row">
+    <div class="row  ">
         @foreach (var city in Model)
         {
-            
             <div class="col">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
@@ -23,7 +17,7 @@
                             {
                                 backgroundColor = "blue-back";
                             }
-                            else if (city.Temperature >= 44 && city.Temperature <= 74 )
+                            else if (city.Temperature >= 44 && city.Temperature <= 74)
                             {
                                 backgroundColor = "green-back";
                             }
@@ -35,14 +29,23 @@
                         <div class="col-md-8 @backgroundColor">
                             <div class="card-body">
                                 <h5 class="card-title">@city.CityName</h5>
-                                <p class="card-text">@city.DateAndTime.Value.ToString("yyyy-dd-M HH:mm")</p>
+                                
+                                <p class="card-text">@city.DateAndTime.Value.ToString(" yyyy-mm-dd hh:mm")</p>
                                 <p class="card-text"><small class="text-body-secondary">@city.Temperature ºF</small></p>
-                                <a href="/Country/Details?code=@(city.CityUniqueCode)" class="card-link">Details</a>
+                                @if (ViewData["Option"].ToString() == "Details")
+                                {
+                                    <a href="/Country/Details?code=@(city.CityUniqueCode)" class="card-link">@ViewData["Option"]</a>
+                                }
+                                else
+                                {
+                                    <a href="/" class="card-link">@ViewData["Option"]</a>
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         }
+
     </div>
 </div>

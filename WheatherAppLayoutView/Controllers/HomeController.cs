@@ -3,7 +3,7 @@ using WheatherAppLayoutView.Models;
 
 namespace WheatherAppLayoutView.Controllers
 {
-    public class WeatherController : Controller
+    public class HomeController : Controller
     {
         public List<CityWheater> cities = new List<CityWheater>()
         {
@@ -17,18 +17,37 @@ namespace WheatherAppLayoutView.Controllers
         [Route("/")]
         public IActionResult Index()
         {
+            ViewData["Option"] = "Details";
             return View(cities);
         }
 
-        [Route("Country/Details/")]
+        [Route("Country/Details")]
         public IActionResult Details([FromQuery]string code)
         {
+            
             var city = cities.FirstOrDefault(c => c.CityUniqueCode == code);
             if (city == null)
             {
                 return PartialView("_CityNotFound");
             }
-            return View(city);
+            ViewData["Option"] = "Back to home"; 
+            return View(new List<CityWheater>  { city } );
+        }
+
+        public IActionResult Error(int? id)
+        {
+            if (id == 404)
+            {
+                ViewBag.ErrorTitle = "Página no encontrada";
+                ViewBag.ErrorMessage = $"La página que buscas no existe o fue movida {StatusCodes.Status404NotFound}";
+            }
+            else
+            {
+                ViewBag.ErrorTitle = "Ocurrió un error";
+                ViewBag.ErrorMessage = "No se pudo procesar la solicitud.";
+            }
+
+            return View();
         }
     }
 }

@@ -1,0 +1,17 @@
+﻿@model List<CityWheater>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Weather Details";
+}
+
+<div class="lista">
+
+</div>
+
+@{
+    await Html.RenderPartialAsync("_CityList");
+}
+
+<script src="/js/content.js"></script>
+
